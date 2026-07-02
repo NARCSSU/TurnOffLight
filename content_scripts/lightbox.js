@@ -1,6 +1,15 @@
 (function () {
   'use strict';
 
+  // ========== 国际化 ==========
+  function i18n(key) {
+    try {
+      return browser.i18n.getMessage(key) || key;
+    } catch (e) {
+      return key;
+    }
+  }
+
   // ========== 常量定义 ==========
   const LIGHTBOX_ENABLED_KEY = 'lightboxEnabled';
   const LIGHTBOX_SIZE_KEY = 'lightboxSize';
@@ -46,6 +55,7 @@
   // ========== 状态 ==========
   const state = {
     enabled: true,
+    pluginEnabled: false,
     gallery: [],
     currentIndex: 0,
     isOpen: false,
@@ -94,7 +104,7 @@
     const fab = document.createElement('button');
     fab.id = 'dark-mode-lightbox-fab';
     fab.innerHTML = SVG_ICONS.image;
-    fab.title = '打开灯箱';
+    fab.title = i18n('openLightbox');
 
     fab.style.cssText = `
       position: fixed;
@@ -150,7 +160,7 @@
   }
 
   function updateFabVisibility() {
-    if (state.enabled) {
+    if (state.enabled && state.pluginEnabled) {
       createFabButton();
       if (state.isOpen || state.isMinimized) {
         hideFabButton();
@@ -162,6 +172,18 @@
     }
   }
 
+  function applyPluginEnabled(enabled) {
+    state.pluginEnabled = enabled;
+    if (enabled) {
+      createSettingsPanel();
+      updateFabVisibility();
+    } else {
+      if (state.isOpen) closeLightbox();
+      removeFabButton();
+      removeSettingsPanel();
+    }
+  }
+
   // ========== 设置面板 (齿轮按钮 + 卡片) ==========
   function createSettingsPanel() {
     if (document.getElementById('dark-mode-settings-fab')) return;
@@ -170,7 +192,7 @@
     const settingsFab = document.createElement('button');
     settingsFab.id = 'dark-mode-settings-fab';
     settingsFab.innerHTML = SVG_ICONS.settings;
-    settingsFab.title = '插件设置';
+    settingsFab.title = i18n('extensionSettings');
     settingsFab.style.cssText = `
       position: fixed;
       bottom: 20px;
@@ -224,44 +246,44 @@
     panel.innerHTML = `
       <div style="margin-bottom: 12px;">
         <label style="display:flex; justify-content:space-between; align-items:center;">
-          <span>Enable Dark Mode</span>
-          <button id="panel-toggle-dark" type="button" style="padding:4px 12px; border-radius:6px; border:none; cursor:pointer; background:#444; color:#fff;">OFF</button>
+          <span>${i18n('enableDarkMode')}</span>
+          <button id="panel-toggle-dark" type="button" style="padding:4px 12px; border-radius:6px; border:none; cursor:pointer; background:#444; color:#fff;">${i18n('off')}</button>
         </label>
       </div>
       <div style="margin-bottom: 12px;">
         <label style="display:block;">
-          <span style="display:block; margin-bottom:6px;">Background Color</span>
+          <span style="display:block; margin-bottom:6px;">${i18n('backgroundColor')}</span>
           <input type="color" id="panel-bg-color" value="#1a1a2e" style="width:100%; height:32px; border:none; border-radius:6px; cursor:pointer; background:transparent;">
         </label>
       </div>
       <div style="margin-bottom: 12px;">
         <label style="display:block;">
-          <span style="display:block; margin-bottom:6px;">Darkness: <span id="panel-darkness-value">80%</span></span>
+          <span style="display:block; margin-bottom:6px;">${i18n('darkness')}: <span id="panel-darkness-value">80%</span></span>
           <input type="range" id="panel-darkness-slider" min="0" max="100" value="80" step="5" style="width:100%;">
         </label>
       </div>
       <div style="margin-bottom: 12px;">
         <label style="display:flex; align-items:center; gap:6px;">
           <input type="checkbox" id="panel-follow-system">
-          <span>Follow System Theme</span>
+          <span>${i18n('followSystemTheme')}</span>
         </label>
       </div>
       <div style="margin-bottom: 12px;">
         <label style="display:flex; align-items:center; gap:6px;">
           <input type="checkbox" id="panel-enable-lightbox" checked>
-          <span>Enable Lightbox Viewer</span>
+          <span>${i18n('enableLightboxViewer')}</span>
         </label>
       </div>
       <div style="margin-bottom: 12px;">
         <label style="display:block;">
-          <span style="display:block; margin-bottom:6px;">Lightbox Size: <span id="panel-lightbox-size-value">40%</span></span>
+          <span style="display:block; margin-bottom:6px;">${i18n('lightboxSize')}: <span id="panel-lightbox-size-value">40%</span></span>
           <input type="range" id="panel-lightbox-size-slider" min="20" max="80" value="40" step="5" style="width:100%; margin-bottom:6px;">
         </label>
         <div style="display:flex; gap:4px; flex-wrap:wrap;">
-          <button class="panel-size-btn" data-size="25" style="flex:1; padding:4px 8px; border-radius:6px; border:1px solid transparent; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.7); cursor:pointer; font-size:11px;">紧凑</button>
-          <button class="panel-size-btn active" data-size="40" style="flex:1; padding:4px 8px; border-radius:6px; border:1px solid transparent; background:linear-gradient(135deg,#fff,#b3d4ff); color:#000; cursor:pointer; font-size:11px; font-weight:600;">标准</button>
-          <button class="panel-size-btn" data-size="60" style="flex:1; padding:4px 8px; border-radius:6px; border:1px solid transparent; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.7); cursor:pointer; font-size:11px;">宽敞</button>
-          <button class="panel-size-btn" data-size="80" style="flex:1; padding:4px 8px; border-radius:6px; border:1px solid transparent; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.7); cursor:pointer; font-size:11px;">沉浸</button>
+          <button class="panel-size-btn" data-size="25" style="flex:1; padding:4px 8px; border-radius:6px; border:1px solid transparent; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.7); cursor:pointer; font-size:11px;">${i18n('sizeCompact')}</button>
+          <button class="panel-size-btn active" data-size="40" style="flex:1; padding:4px 8px; border-radius:6px; border:1px solid transparent; background:linear-gradient(135deg,#fff,#b3d4ff); color:#000; cursor:pointer; font-size:11px; font-weight:600;">${i18n('sizeStandard')}</button>
+          <button class="panel-size-btn" data-size="60" style="flex:1; padding:4px 8px; border-radius:6px; border:1px solid transparent; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.7); cursor:pointer; font-size:11px;">${i18n('sizeSpacious')}</button>
+          <button class="panel-size-btn" data-size="80" style="flex:1; padding:4px 8px; border-radius:6px; border:1px solid transparent; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.7); cursor:pointer; font-size:11px;">${i18n('sizeImmersive')}</button>
         </div>
       </div>
     `;
@@ -391,10 +413,10 @@
 
     const toggleDarkBtn = panel.querySelector('#panel-toggle-dark');
     if (settings.enabled) {
-      toggleDarkBtn.textContent = 'ON';
+      toggleDarkBtn.textContent = i18n('on');
       toggleDarkBtn.style.background = '#22c55e';
     } else {
-      toggleDarkBtn.textContent = 'OFF';
+      toggleDarkBtn.textContent = i18n('off');
       toggleDarkBtn.style.background = '#444';
     }
 
@@ -1682,7 +1704,7 @@
 
   // ========== 设置加载 ==========
   function loadSettings() {
-    browser.storage.local.get([LIGHTBOX_ENABLED_KEY, LIGHTBOX_SIZE_KEY, 'buttonSize']).then(result => {
+    browser.storage.local.get([LIGHTBOX_ENABLED_KEY, LIGHTBOX_SIZE_KEY, 'buttonSize', 'pluginEnabled']).then(result => {
       state.enabled = result[LIGHTBOX_ENABLED_KEY] !== false;
       if (typeof result[LIGHTBOX_SIZE_KEY] === 'number') {
         state.size = result[LIGHTBOX_SIZE_KEY];
@@ -1690,10 +1712,10 @@
       if (typeof result.buttonSize === 'number') {
         state.buttonSize = result.buttonSize;
       }
+      state.pluginEnabled = !!result.pluginEnabled;
       applySize(state.size);
       applyButtonSize(state.buttonSize);
-      updateFabVisibility();
-      createSettingsPanel();
+      applyPluginEnabled(state.pluginEnabled);
     }).catch(() => { });
   }
 
@@ -1703,6 +1725,24 @@
       if (!message) return;
 
       switch (message.type) {
+        case 'UPDATE_SETTINGS':
+          if (message.payload && message.payload.pluginEnabled !== undefined) {
+            applyPluginEnabled(message.payload.pluginEnabled);
+          }
+          if (message.payload && typeof message.payload.buttonSize === 'number') {
+            applyButtonSize(message.payload.buttonSize);
+          }
+          if (message.payload && typeof message.payload.lightboxSize === 'number') {
+            applySize(message.payload.lightboxSize);
+            if (state.isOpen) updateBodyMargin();
+          }
+          if (message.payload && message.payload.lightboxEnabled !== undefined) {
+            state.enabled = !!message.payload.lightboxEnabled;
+            browser.storage.local.set({ [LIGHTBOX_ENABLED_KEY]: state.enabled }).catch(() => { });
+            if (!state.enabled) closeLightbox();
+            updateFabVisibility();
+          }
+          break;
         case 'TOGGLE_LIGHTBOX':
           state.enabled = !!(message.payload && message.payload.enabled);
           browser.storage.local.set({ [LIGHTBOX_ENABLED_KEY]: state.enabled }).catch(() => { });

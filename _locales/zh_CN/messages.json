@@ -1,0 +1,74 @@
+{
+  "extensionName": {
+    "message": "暗色模式开关",
+    "description": "插件名称"
+  },
+  "extensionDescription": {
+    "message": "一键切换暗色模式，保护视力",
+    "description": "插件描述"
+  },
+  "subtitle": {
+    "message": "一键切换暗色模式，保护视力",
+    "description": "Popup 副标题"
+  },
+  "enableExtension": {
+    "message": "启用插件",
+    "description": "启用插件开关标签"
+  },
+  "enableDarkMode": {
+    "message": "启用暗模式",
+    "description": "启用暗模式开关标签"
+  },
+  "backgroundColor": {
+    "message": "背景颜色",
+    "description": "背景颜色设置标签"
+  },
+  "darkness": {
+    "message": "暗度",
+    "description": "暗度设置标签"
+  },
+  "followSystemTheme": {
+    "message": "跟随系统主题",
+    "description": "跟随系统主题设置标签"
+  },
+  "enableLightboxViewer": {
+    "message": "启用灯箱查看器",
+    "description": "启用灯箱查看器设置标签"
+  },
+  "lightboxSize": {
+    "message": "灯箱大小",
+    "description": "灯箱大小设置标签"
+  },
+  "sizeCompact": {
+    "message": "紧凑",
+    "description": "紧凑尺寸预设"
+  },
+  "sizeStandard": {
+    "message": "标准",
+    "description": "标准尺寸预设"
+  },
+  "sizeSpacious": {
+    "message": "宽敞",
+    "description": "宽敞尺寸预设"
+  },
+  "sizeImmersive": {
+    "message": "沉浸",
+    "description": "沉浸尺寸预设"
+  },
+  "openLightbox": {
+    "message": "打开灯箱",
+    "description": "灯箱按钮提示"
+  },
+  "extensionSettings": {
+    "message": "插件设置",
+    "description": "设置按钮提示"
+  },
+  "on": {
+    "message": "开",
+    "description": "开启状态文字"
+  },
+  "off": {
+    "message": "关",
+    "description": "关闭状态文字"
+  }
+}

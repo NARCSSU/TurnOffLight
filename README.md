@@ -1,115 +1,126 @@
-# Dark Mode Switch - Firefox Extension
+<div align="center">
 
-A Firefox extension that converts web pages to dark mode for better ergonomic viewing experience.
+# 🌙 Dark Mode Switch
 
-## Features
+**A Firefox extension that converts web pages to dark mode for better ergonomic viewing experience.**
 
-- **One-click Dark Mode**: Toggle dark mode on/off with a single click
-- **Color Depth Control**: Adjust the darkness level (Mild/Medium/Deep)
-- **System Theme Sync**: Automatically follow system theme changes
-- **Custom Colors**: Personalize background and text colors
-- **Media Protection**: Images, videos, and canvas elements are preserved
-- **Performance Optimized**: Uses CSS filter for instant conversion
-- **Settings Persistence**: Your preferences are saved automatically
+[![Version][version-badge]][version-link]
+[![License][license-badge]][license-link]
+[![Firefox][firefox-badge]][firefox-link]
+[![PRs Welcome][prs-badge]][prs-link]
 
-## Installation
+[version-badge]: https://img.shields.io/badge/version-1.0.0-blue?style=flat-square
+[version-link]: #
+[license-badge]: https://img.shields.io/badge/license-MIT-green?style=flat-square
+[license-link]: #license
+[firefox-badge]: https://img.shields.io/badge/Firefox-109%2B-orange?style=flat-square&logo=firefox
+[firefox-link]: #
+[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square
+[prs-link]: #contributing
+
+[Key Features](#key-features) • [Installation](#installation) • [Usage](#usage) • [Contributing](#contributing) • [License](#license)
+
+</div>
+
+---
+
+## ✨ Key Features
+
+- **One-click Toggle** — Enable/disable the extension with a single click from the toolbar
+- **Custom Dark Mode** — Personalize background color and darkness level to your preference
+- **System Theme Sync** — Automatically follow your OS theme changes
+- **Lightbox Viewer** — Built-in image lightbox with gallery support
+- **Media Protection** — Images, videos, and canvas elements are preserved from inversion
+- **Performance Optimized** — Uses CSS filters for instant, smooth conversion
+- **Bilingual Support** — English and Chinese (Simplified) interface, auto-detects system language
+- **Settings Persistence** — Your preferences are saved automatically across sessions
+
+## 🚀 Installation
 
 ### Method 1: Temporary Loading (Recommended for Testing)
-This is the easiest way to test the extension without modifying browser settings. The extension will be removed when Firefox restarts.
+
+The easiest way to test without modifying browser settings. The extension will be removed when Firefox restarts.
 
 1. Open Firefox
 2. Navigate to `about:debugging#/runtime/this-firefox`
-3. Find the **"Temporary Extensions"** section
-4. Click **"Load Temporary Add-on..."**
+3. Find the **Temporary Extensions** section
+4. Click **Load Temporary Add-on...**
 5. Select the `manifest.json` file from the project directory
 6. The extension icon will appear in the toolbar immediately
 
 ### Method 2: Install from XPI File (Requires Developer Edition)
-To install permanently, you need to disable signature verification or use a special Firefox version.
+
+For permanent installation, use Firefox Developer Edition with signature verification disabled.
 
 1. **Install Firefox Developer Edition**
-   - Download from: https://www.mozilla.org/zh-CN/firefox/developer/
-   
+   - Download: [mozilla.org/firefox/developer](https://www.mozilla.org/en-US/firefox/developer/)
+
 2. **Disable signature verification**
    - Open `about:config`
    - Click "Accept the Risk and Continue"
    - Search for `xpinstall.signatures.required`
    - Set the value to `false`
-   
+
 3. **Install the extension**
    - Navigate to `about:addons`
    - Click the gear icon → "Install Add-on From File..."
    - Select `DarkModeSwitch.xpi`
 
 ### Method 3: Firefox Add-ons Store (Coming Soon)
-Once the extension is signed by Mozilla, you can install it directly from the Firefox Add-ons Store.
 
-### About Firefox Extension Signing
-Firefox requires most extensions to be digitally signed by Mozilla before installation. This helps protect users from malicious extensions that might hijack the browser, steal information, or inject spam.
+Once signed by Mozilla, install directly from the Firefox Add-ons Store.
 
-**Why signing is required:**
-- Prevents unauthorized changes to browser settings
-- Blocks adware, trackers, and toolbar installations
-- Protects browsing data and login credentials
+## 📖 Usage
 
-**How to use unsigned extensions:**
-1. **Temporary Loading**: Use `about:debugging` (Method 1 above)
-2. **Firefox Developer Edition**: Disable signature verification in `about:config`
-3. **Firefox ESR**: Also supports disabling signature verification
-4. **Submit to AMO**: For permanent distribution, submit to https://addons.mozilla.org/ for review and signing
+### Quick Start
 
-## Usage
+1. Click the extension icon in the Firefox toolbar
+2. Toggle **Enable Extension** to activate the extension
+3. On any web page, two floating buttons appear in the bottom-right:
+   - 🖼️ **Lightbox button** — Click to open the image lightbox viewer
+   - ⚙️ **Settings button** — Click to open the settings panel
 
-### Basic Controls
-- Click the extension icon in the toolbar to open the popup
-- Click the "Enable Dark Mode" button to toggle dark mode
-- Use the slider to adjust color depth (10%-100%)
-- Click preset buttons for quick settings (Mild/Medium/Deep)
-- Enable "Follow System Theme" to sync with your OS theme
+### Settings Panel
 
-### Custom Colors
-1. Click "Custom Colors Settings" in the popup
-2. Choose your preferred background and text colors
-3. Enable "Enable Custom Colors" to apply your settings
-4. Click "Save Changes" to apply
+Access all customization options through the gear button on web pages:
 
-## Technical Details
+| Setting | Description |
+|---------|-------------|
+| **Enable Dark Mode** | Toggle dark mode effect on/off |
+| **Background Color** | Choose custom background color |
+| **Darkness** | Adjust darkness level (0-100%) |
+| **Follow System Theme** | Auto-sync with OS theme |
+| **Enable Lightbox Viewer** | Toggle the image lightbox feature |
+| **Lightbox Size** | Adjust lightbox size (Compact / Standard / Spacious / Immersive) |
+
+### Keyboard Shortcuts (Lightbox)
+
+| Key | Action |
+|-----|--------|
+| `Esc` | Close lightbox |
+| `←` / `→` | Previous / Next image |
+| `+` / `-` | Zoom in / out |
+| `Space` | Play / pause (video) |
+| `f` | Toggle fullscreen |
+| `m` | Mute / unmute |
+
+## 🛠️ Technical Details
 
 ### Architecture
-- **Manifest V3**: Uses the latest Firefox extension standard
-- **Content Scripts**: Injects CSS and handles page-level logic
-- **Background Script**: Manages settings and system theme detection
-- **Popup UI**: Provides user controls
-- **Options Page**: Advanced customization
-
-### CSS Implementation
-The extension uses CSS `filter: invert()` combined with `hue-rotate()` for efficient color inversion:
-- `color-scheme: dark` ensures proper form element rendering
-- Images, videos, and canvas elements use `filter: invert(100%) hue-rotate(180deg)` to counteract the parent inversion
-- Custom colors use CSS variables for dynamic application
-
-### Browser Compatibility
-- **Firefox**: Version 109 or higher
-- **Manifest Version**: V3
-
-## Permissions Required
-
-- `storage`: Save user preferences
-- `activeTab`: Access current tab
-- `theme`: Detect system theme changes
-- `<all_urls>`: Apply dark mode to all websites
-
-## Project Structure
 
 ```
 TurnOffLight/
 ├── manifest.json          # Extension configuration
-├── DarkModeSwitch.xpi     # Packaged extension
+├── _locales/              # Internationalization files
+│   ├── en/messages.json   # English strings
+│   └── zh_CN/messages.json # Simplified Chinese strings
 ├── background/
-│   └── background.js      # Background script
+│   └── background.js      # Background script (settings, theme detection)
 ├── content_scripts/
 │   ├── dark-mode.css      # Dark mode styles
-│   └── dark-mode.js       # Content script logic
+│   ├── dark-mode.js       # Dark mode logic
+│   ├── lightbox.css       # Lightbox styles
+│   └── lightbox.js        # Lightbox & settings panel logic
 ├── popup/
 │   ├── popup.html         # Popup UI
 │   ├── popup.css          # Popup styles
@@ -119,27 +130,84 @@ TurnOffLight/
 │   ├── options.css        # Options styles
 │   └── options.js         # Options logic
 ├── icons/                 # Extension icons
-└── README.md              # This file
+└── build_xpi.py           # XPI build script
 ```
 
-## Development
+### Technologies
 
-### Prerequisites
-- Firefox 109 or higher
-- Basic understanding of WebExtensions API
+- **Manifest V3** — Latest Firefox extension standard
+- **CSS Filters** — Efficient color inversion with `filter: invert()` + `hue-rotate()`
+- **WebExtensions API** — `browser.storage`, `browser.theme`, `browser.i18n`
+- **Vanilla JavaScript** — No framework dependencies, lightweight and fast
 
-### Building
-Run `python build_xpi.py` to create the XPI package.
+### Browser Compatibility
 
-### Testing
-1. Load the extension temporarily in Firefox
-2. Test on various websites (Google, Wikipedia, GitHub, etc.)
-3. Verify all features work as expected
+| Browser | Minimum Version |
+|---------|----------------|
+| Firefox | 109+ |
+| Manifest | V3 |
 
-## License
+## 🔒 Permissions Required
+
+| Permission | Purpose |
+|------------|---------|
+| `storage` | Save user preferences locally |
+| `activeTab` | Access current tab for lightbox interaction |
+| `theme` | Detect system theme changes |
+| `<all_urls>` | Apply dark mode to all websites |
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how you can help:
+
+1. **Fork the repository** and create your branch
+2. **Make your changes** — add features, fix bugs, improve docs
+3. **Test thoroughly** on multiple websites
+4. **Submit a Pull Request** with a clear description
+
+### Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/NARCSSU/TurnOffLight.git
+cd TurnOffLight
+
+# Build XPI package
+python build_xpi.py
+
+# Load in Firefox (temporary)
+# about:debugging#/runtime/this-firefox → Load Temporary Add-on → select manifest.json
+```
+
+### Adding New Languages
+
+1. Create a new directory under `_locales/` (e.g., `_locales/ja/`)
+2. Copy `_locales/en/messages.json` as a template
+3. Translate all message values
+4. Test by changing your Firefox UI language
+
+## 📝 Changelog
+
+### v1.0.0
+- Initial release
+- Dark mode toggle with custom colors
+- System theme sync
+- Lightbox image viewer
+- Bilingual (English / Chinese) support
+- Extension master toggle
+
+## 📄 License
 
 This project is open source and available for personal and commercial use.
 
-## Support
+---
 
-If you encounter any issues or have suggestions, please report them through the GitHub issues page.
+<div align="center">
+
+Made with ❤️ for better eye health
+
+[**Report Bug**][issues-link] · [**Request Feature**][issues-link]
+
+[issues-link]: https://github.com/NARCSSU/TurnOffLight/issues
+
+</div>

@@ -1,0 +1,74 @@
+{
+  "extensionName": {
+    "message": "Dark Mode Switch",
+    "description": "Extension name"
+  },
+  "extensionDescription": {
+    "message": "Toggle dark mode for better viewing",
+    "description": "Extension description"
+  },
+  "subtitle": {
+    "message": "Toggle dark mode for better viewing",
+    "description": "Popup subtitle"
+  },
+  "enableExtension": {
+    "message": "Enable Extension",
+    "description": "Enable extension toggle label"
+  },
+  "enableDarkMode": {
+    "message": "Enable Dark Mode",
+    "description": "Enable dark mode toggle label"
+  },
+  "backgroundColor": {
+    "message": "Background Color",
+    "description": "Background color setting label"
+  },
+  "darkness": {
+    "message": "Darkness",
+    "description": "Darkness setting label"
+  },
+  "followSystemTheme": {
+    "message": "Follow System Theme",
+    "description": "Follow system theme setting label"
+  },
+  "enableLightboxViewer": {
+    "message": "Enable Lightbox Viewer",
+    "description": "Enable lightbox viewer setting label"
+  },
+  "lightboxSize": {
+    "message": "Lightbox Size",
+    "description": "Lightbox size setting label"
+  },
+  "sizeCompact": {
+    "message": "Compact",
+    "description": "Compact size preset"
+  },
+  "sizeStandard": {
+    "message": "Standard",
+    "description": "Standard size preset"
+  },
+  "sizeSpacious": {
+    "message": "Spacious",
+    "description": "Spacious size preset"
+  },
+  "sizeImmersive": {
+    "message": "Immersive",
+    "description": "Immersive size preset"
+  },
+  "openLightbox": {
+    "message": "Open Lightbox",
+    "description": "Lightbox FAB tooltip"
+  },
+  "extensionSettings": {
+    "message": "Extension Settings",
+    "description": "Settings FAB tooltip"
+  },
+  "on": {
+    "message": "ON",
+    "description": "On state text"
+  },
+  "off": {
+    "message": "OFF",
+    "description": "Off state text"
+  }
+}

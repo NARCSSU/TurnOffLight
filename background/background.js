@@ -1,5 +1,6 @@
 (function () {
   const DEFAULT_SETTINGS = {
+    pluginEnabled: false,
     enabled: false,
     bgColor: '#1a1a2e',
     bgDarkness: 80,
@@ -12,8 +13,8 @@
 
   let currentSettings = { ...DEFAULT_SETTINGS };
 
-  function updateIcon(enabled) {
-    const iconPath = enabled ? 'icons/icon-on' : 'icons/icon-off';
+  function updateIcon(pluginEnabled) {
+    const iconPath = pluginEnabled ? 'icons/icon-on' : 'icons/icon-off';
     browser.action.setIcon({
       path: {
         16: `${iconPath}-16.png`,
@@ -24,11 +25,11 @@
     });
 
     browser.action.setBadgeText({
-      text: enabled ? 'ON' : 'OFF'
+      text: pluginEnabled ? 'ON' : 'OFF'
     });
 
     browser.action.setBadgeBackgroundColor({
-      color: enabled ? '#22c55e' : '#ef4444'
+      color: pluginEnabled ? '#22c55e' : '#ef4444'
     });
   }
 
@@ -57,7 +58,7 @@
   function saveSettings(settings) {
     currentSettings = { ...currentSettings, ...settings };
     return browser.storage.local.set(currentSettings).then(() => {
-      updateIcon(currentSettings.enabled);
+      updateIcon(currentSettings.pluginEnabled);
       broadcastSettings(currentSettings);
       return currentSettings;
     });
@@ -102,7 +103,7 @@
           const luminance = getColorLuminance(bgColor);
           const isDark = luminance < 128;
 
-          if (currentSettings.followSystem && isDark !== currentSettings.enabled) {
+          if (currentSettings.pluginEnabled && currentSettings.followSystem && isDark !== currentSettings.enabled) {
             saveSettings({ enabled: isDark, systemDark: isDark });
           }
         }
@@ -112,6 +113,12 @@
 
   function handleMessage(message, sender, sendResponse) {
     switch (message.type) {
+      case 'TOGGLE_PLUGIN':
+        saveSettings({ pluginEnabled: !currentSettings.pluginEnabled }).then(settings => {
+          sendResponse({ success: true, settings });
+        });
+        return true;
+
       case 'TOGGLE_DARK_MODE':
         saveSettings({ enabled: !currentSettings.enabled }).then(settings => {
           sendResponse({ success: true, settings });
@@ -222,9 +229,9 @@
 
   browser.storage.local.get(DEFAULT_SETTINGS).then(settings => {
     currentSettings = { ...DEFAULT_SETTINGS, ...settings };
-    updateIcon(currentSettings.enabled);
+    updateIcon(currentSettings.pluginEnabled);
 
-    if (currentSettings.followSystem) {
+    if (currentSettings.pluginEnabled && currentSettings.followSystem) {
       checkSystemTheme();
     }
   });
@@ -232,7 +239,7 @@
   browser.runtime.onInstalled.addListener(() => {
     browser.storage.local.get(DEFAULT_SETTINGS).then(settings => {
       currentSettings = { ...DEFAULT_SETTINGS, ...settings };
-      updateIcon(currentSettings.enabled);
+      updateIcon(currentSettings.pluginEnabled);
     });
   });
 })();

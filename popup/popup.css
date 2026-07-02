@@ -85,6 +85,12 @@ body {
   transform: scale(0.98);
 }
 
+.toggle-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .depth-label {
   display: flex;
   flex-direction: column;

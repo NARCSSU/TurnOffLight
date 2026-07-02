@@ -1,4 +1,4 @@
-(function() {
+(function () {
   const bgColorInput = document.getElementById('bg-color');
   const bgColorHex = document.getElementById('bg-color-hex');
   const textColorInput = document.getElementById('text-color');
@@ -87,12 +87,12 @@
     card.addEventListener('click', () => {
       const bg = card.dataset.bg;
       const text = card.dataset.text;
-      
+
       bgColorInput.value = bg;
       bgColorHex.value = bg;
       textColorInput.value = text;
       textColorHex.value = text;
-      
+
       updatePreview();
     });
   });

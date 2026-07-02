@@ -2,6 +2,7 @@
   'use strict';
 
   const DEFAULT_SETTINGS = {
+    pluginEnabled: false,
     enabled: false,
     bgColor: '#1a1a2e',
     bgDarkness: 80,
@@ -91,7 +92,7 @@
 
   function setDarkMode(enabled) {
     const html = document.documentElement;
-    if (enabled) {
+    if (currentSettings.pluginEnabled && enabled) {
       html.classList.add('dark-mode-active');
     } else {
       html.classList.remove('dark-mode-active');
@@ -103,7 +104,7 @@
   }
 
   function handleSystemThemeChange(e) {
-    if (!currentSettings.followSystemTheme) return;
+    if (!currentSettings.pluginEnabled || !currentSettings.followSystemTheme) return;
     setDarkMode(e.matches);
     currentSettings.enabled = e.matches;
     browser.storage.local.set({ enabled: e.matches }).catch(() => { });
@@ -123,7 +124,9 @@
     setupSystemThemeListener();
     const isDark = isSystemDark();
     currentSettings.enabled = isDark;
-    setDarkMode(isDark);
+    if (currentSettings.pluginEnabled) {
+      setDarkMode(isDark);
+    }
     browser.storage.local.set({ enabled: isDark }).catch(() => { });
   }
 
@@ -135,7 +138,9 @@
       const adjustedColor = adjustBrightness(baseColor, currentSettings.bgDarkness);
       applyBgColor(adjustedColor);
 
-      if (currentSettings.followSystemTheme) {
+      if (!currentSettings.pluginEnabled) {
+        setDarkMode(false);
+      } else if (currentSettings.followSystemTheme) {
         setupSystemThemeListener();
         const isDark = isSystemDark();
         currentSettings.enabled = isDark;
@@ -153,7 +158,7 @@
         currentSettings.enabled = newEnabled;
         setDarkMode(newEnabled);
         browser.storage.local.set({ enabled: newEnabled }).catch(() => { });
-        sendResponse({ enabled: newEnabled });
+        sendResponse({ enabled: newEnabled, pluginEnabled: currentSettings.pluginEnabled });
         return true;
       }
 
@@ -206,7 +211,9 @@
         }
         const adjustedColor = adjustBrightness(baseColor, currentSettings.bgDarkness);
         applyBgColor(adjustedColor);
-        if (currentSettings.followSystemTheme) {
+        if (!currentSettings.pluginEnabled) {
+          setDarkMode(false);
+        } else if (currentSettings.followSystemTheme) {
           setupSystemThemeListener();
           const isDark = isSystemDark();
           currentSettings.enabled = isDark;

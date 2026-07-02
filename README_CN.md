@@ -1,115 +1,126 @@
-# Dark Mode Switch - Firefox 扩展插件
+<div align="center">
 
-一个将网页转换为暗色模式的 Firefox 扩展插件，提供更符合人体工程学的视觉体验。
+# 🌙 暗色模式开关（Dark Mode Switch）
 
-## 功能特性
+**一款 Firefox 扩展插件，将网页转换为暗色模式，提供更符合人体工程学的视觉体验。**
 
-- **一键切换**: 单击即可开启/关闭暗色模式
-- **颜色深度调节**: 支持调节暗色程度（轻度/中度/深度）
-- **系统主题同步**: 自动检测系统主题并同步切换
-- **自定义颜色**: 个性化背景颜色和文字颜色
-- **媒体保护**: 图片、视频和 Canvas 元素保持原色
-- **性能优化**: 使用 CSS 滤镜实现即时转换
-- **设置持久化**: 自动保存用户偏好设置
+[![版本][version-badge]][version-link]
+[![许可证][license-badge]][license-link]
+[![Firefox][firefox-badge]][firefox-link]
+[![欢迎 PR][prs-badge]][prs-link]
 
-## 安装方法
+[version-badge]: https://img.shields.io/badge/版本-1.0.0-blue?style=flat-square
+[version-link]: #
+[license-badge]: https://img.shields.io/badge/许可证-MIT-green?style=flat-square
+[license-link]: #许可证
+[firefox-badge]: https://img.shields.io/badge/Firefox-109%2B-orange?style=flat-square&logo=firefox
+[firefox-link]: #
+[prs-badge]: https://img.shields.io/badge/PR-欢迎-brightgreen?style=flat-square
+[prs-link]: #贡献指南
+
+[主要功能](#主要功能) • [安装方法](#安装方法) • [使用说明](#使用说明) • [贡献指南](#贡献指南) • [许可证](#许可证)
+
+</div>
+
+---
+
+## ✨ 主要功能
+
+- **一键开关** — 从工具栏点击即可启用/禁用插件
+- **自定义暗模式** — 个性化设置背景颜色和暗度级别
+- **系统主题同步** — 自动跟随操作系统主题变化
+- **灯箱查看器** — 内置图片灯箱，支持画廊浏览
+- **媒体保护** — 图片、视频和 Canvas 元素不受反色影响
+- **性能优化** — 使用 CSS 滤镜实现即时、流畅的转换
+- **双语支持** — 英文和简体中文界面，自动检测系统语言
+- **设置持久化** — 您的偏好设置会自动保存，重启浏览器后保留
+
+## 🚀 安装方法
 
 ### 方法一：临时加载（推荐用于测试）
-这是最简单的测试方式，无需修改浏览器设置。重启 Firefox 后插件会自动消失。
+
+最简单的测试方式，无需修改浏览器设置。重启 Firefox 后插件会自动消失。
 
 1. 打开 Firefox
 2. 访问 `about:debugging#/runtime/this-firefox`
-3. 找到 **"临时扩展"** 部分
-4. 点击 **"加载临时扩展..."**
+3. 找到 **临时扩展** 部分
+4. 点击 **加载临时扩展...**
 5. 选择项目目录中的 `manifest.json` 文件
 6. 插件图标会立即出现在工具栏中
 
 ### 方法二：从 XPI 文件安装（需要开发者版）
-要永久安装，需要使用特殊版本的 Firefox 并禁用签名验证。
+
+如需永久安装，请使用 Firefox 开发者版并禁用签名验证。
 
 1. **安装 Firefox 开发者版**
-   - 下载地址: https://www.mozilla.org/zh-CN/firefox/developer/
-   
+   - 下载地址：[mozilla.org/zh-CN/firefox/developer](https://www.mozilla.org/zh-CN/firefox/developer/)
+
 2. **禁用签名验证**
    - 打开 `about:config`
-   - 点击 "接受风险并继续"
+   - 点击"接受风险并继续"
    - 搜索 `xpinstall.signatures.required`
    - 将值设置为 `false`
-   
+
 3. **安装插件**
    - 访问 `about:addons`
    - 点击齿轮图标 → "从文件安装附加组件..."
-   - 选择 `DarkModeSwitch.xpi` 文件
+   - 选择 `DarkModeSwitch.xpi`
 
-### 方法三：从 Firefox 附加组件商店安装（即将推出）
-插件经过 Mozilla 签名后，可以直接从 Firefox 附加组件商店安装。
+### 方法三：Firefox 附加组件商店（即将推出）
 
-### 关于 Firefox 附加组件签名
-Firefox 要求大多数附加组件在安装前必须经过 Mozilla 的数字签名验证。这有助于保护用户免受恶意附加组件的侵害，这些恶意组件可能会劫持浏览器、窃取信息或植入垃圾广告。
+插件经过 Mozilla 签名后，可直接从 Firefox 附加组件商店安装。
 
-**为什么需要签名：**
-- 防止未经授权修改浏览器设置
-- 阻止广告软件、跟踪器和工具栏的安装
-- 保护浏览数据和登录凭证
+## 📖 使用说明
 
-**如何使用未签名插件：**
-1. **临时加载**: 使用 `about:debugging`（上述方法一）
-2. **Firefox 开发者版**: 在 `about:config` 中禁用签名验证
-3. **Firefox ESR**: 也支持禁用签名验证
-4. **提交到 AMO**: 如需永久分发，提交到 https://addons.mozilla.org/ 进行审核和签名
+### 快速开始
 
-## 使用说明
+1. 点击 Firefox 工具栏中的插件图标
+2. 切换 **启用插件** 来激活扩展
+3. 在任何网页上，右下角会出现两个浮动按钮：
+   - 🖼️ **灯箱按钮** — 点击打开图片灯箱查看器
+   - ⚙️ **设置按钮** — 点击打开设置面板
 
-### 基本操作
-- 点击工具栏中的插件图标打开弹窗
-- 点击 "Enable Dark Mode" 按钮切换暗色模式
-- 使用滑块调节颜色深度（10%-100%）
-- 点击预设按钮快速设置（Mild/Medium/Deep）
-- 启用 "Follow System Theme" 跟随系统主题
+### 设置面板
 
-### 自定义颜色
-1. 在弹窗中点击 "Custom Colors Settings"
-2. 选择您偏好的背景颜色和文字颜色
-3. 启用 "Enable Custom Colors" 应用设置
-4. 点击 "Save Changes" 保存
+通过网页上的齿轮按钮访问所有自定义选项：
 
-## 技术细节
+| 设置项 | 说明 |
+|--------|------|
+| **启用暗模式** | 开启/关闭暗模式效果 |
+| **背景颜色** | 选择自定义背景颜色 |
+| **暗度** | 调节暗度级别（0-100%） |
+| **跟随系统主题** | 自动同步系统主题 |
+| **启用灯箱查看器** | 开关图片灯箱功能 |
+| **灯箱大小** | 调整灯箱尺寸（紧凑 / 标准 / 宽敞 / 沉浸） |
 
-### 架构
-- **Manifest V3**: 使用最新的 Firefox 扩展标准
-- **Content Scripts**: 注入 CSS 并处理页面级逻辑
-- **Background Script**: 管理设置和系统主题检测
-- **Popup UI**: 提供用户控制界面
-- **Options Page**: 高级自定义选项
+### 键盘快捷键（灯箱）
 
-### CSS 实现
-扩展使用 CSS `filter: invert()` 结合 `hue-rotate()` 实现高效的颜色反转：
-- `color-scheme: dark` 确保表单元素正确渲染
-- 图片、视频和 Canvas 元素使用 `filter: invert(100%) hue-rotate(180deg)` 抵消父元素的反转效果
-- 自定义颜色使用 CSS 变量实现动态应用
+| 按键 | 功能 |
+|------|------|
+| `Esc` | 关闭灯箱 |
+| `←` / `→` | 上一张 / 下一张图片 |
+| `+` / `-` | 放大 / 缩小 |
+| `空格` | 播放 / 暂停（视频） |
+| `f` | 切换全屏 |
+| `m` | 静音 / 取消静音 |
 
-### 浏览器兼容性
-- **Firefox**: 版本 109 或更高
-- **Manifest 版本**: V3
+## 🛠️ 技术细节
 
-## 所需权限
-
-- `storage`: 保存用户偏好设置
-- `activeTab`: 访问当前标签页
-- `theme`: 检测系统主题变化
-- `<all_urls>`: 对所有网站应用暗色模式
-
-## 项目结构
+### 项目结构
 
 ```
 TurnOffLight/
 ├── manifest.json          # 扩展配置文件
-├── DarkModeSwitch.xpi     # 打包后的扩展文件
+├── _locales/              # 国际化文件
+│   ├── en/messages.json   # 英文文案
+│   └── zh_CN/messages.json # 简体中文文案
 ├── background/
-│   └── background.js      # 后台脚本
+│   └── background.js      # 后台脚本（设置管理、主题检测）
 ├── content_scripts/
-│   ├── dark-mode.css      # 暗色模式样式
-│   └── dark-mode.js       # 内容脚本逻辑
+│   ├── dark-mode.css      # 暗模式样式
+│   ├── dark-mode.js       # 暗模式逻辑
+│   ├── lightbox.css       # 灯箱样式
+│   └── lightbox.js        # 灯箱与设置面板逻辑
 ├── popup/
 │   ├── popup.html         # 弹窗界面
 │   ├── popup.css          # 弹窗样式
@@ -119,27 +130,84 @@ TurnOffLight/
 │   ├── options.css        # 选项页面样式
 │   └── options.js         # 选项页面逻辑
 ├── icons/                 # 扩展图标
-└── README.md              # 说明文档
+└── build_xpi.py           # XPI 构建脚本
 ```
 
-## 开发
+### 技术栈
 
-### 前置条件
-- Firefox 109 或更高版本
-- 基本了解 WebExtensions API
+- **Manifest V3** — 最新的 Firefox 扩展标准
+- **CSS 滤镜** — 使用 `filter: invert()` + `hue-rotate()` 实现高效颜色反转
+- **WebExtensions API** — `browser.storage`、`browser.theme`、`browser.i18n`
+- **原生 JavaScript** — 无框架依赖，轻量快速
 
-### 构建
-运行 `python build_xpi.py` 创建 XPI 包。
+### 浏览器兼容性
 
-### 测试
-1. 在 Firefox 中临时加载扩展
-2. 在各类网站（Google、Wikipedia、GitHub 等）上测试
-3. 验证所有功能正常工作
+| 浏览器 | 最低版本 |
+|--------|----------|
+| Firefox | 109+ |
+| Manifest | V3 |
 
-## 许可证
+## 🔒 所需权限
 
-本项目是开源的，可用于个人和商业用途。
+| 权限 | 用途 |
+|------|------|
+| `storage` | 本地保存用户偏好设置 |
+| `activeTab` | 访问当前标签页以进行灯箱交互 |
+| `theme` | 检测系统主题变化 |
+| `<all_urls>` | 对所有网站应用暗模式 |
 
-## 支持
+## 🤝 贡献指南
 
-如果您遇到任何问题或有建议，请通过 GitHub issues 页面报告。
+欢迎贡献代码！以下是参与方式：
+
+1. **Fork 本仓库** 并创建您的分支
+2. **进行修改** — 添加功能、修复 Bug、改进文档
+3. **在多个网站上充分测试**
+4. **提交 Pull Request** 并附上清晰的描述
+
+### 开发环境搭建
+
+```bash
+# 克隆仓库
+git clone https://github.com/NARCSSU/TurnOffLight.git
+cd TurnOffLight
+
+# 构建 XPI 包
+python build_xpi.py
+
+# 在 Firefox 中加载（临时）
+# about:debugging#/runtime/this-firefox → 加载临时扩展 → 选择 manifest.json
+```
+
+### 添加新语言
+
+1. 在 `_locales/` 下创建新目录（例如 `_locales/ja/`）
+2. 复制 `_locales/en/messages.json` 作为模板
+3. 翻译所有 message 值
+4. 通过更改 Firefox 界面语言进行测试
+
+## 📝 更新日志
+
+### v1.0.0
+- 初始版本发布
+- 支持自定义颜色的暗模式开关
+- 系统主题同步
+- 图片灯箱查看器
+- 双语（英文 / 中文）支持
+- 插件总开关
+
+## 📄 许可证
+
+本项目开源，可用于个人和商业用途。
+
+---
+
+<div align="center">
+
+用 ❤️ 制作，为了更好的视力健康
+
+[**报告 Bug**][issues-link] · [**功能建议**][issues-link]
+
+[issues-link]: https://github.com/NARCSSU/TurnOffLight/issues
+
+</div>

@@ -3,7 +3,7 @@ import zipfile
 
 def create_xpi():
     project_dir = os.path.dirname(os.path.abspath(__file__))
-    xpi_path = os.path.join(project_dir, 'DarkModeSwitch_v7.xpi')
+    xpi_path = os.path.join(project_dir, 'DarkModeSwitch_v12.xpi')
     
     files_to_include = [
         'manifest.json',
@@ -18,6 +18,8 @@ def create_xpi():
         'options/options.html',
         'options/options.css',
         'options/options.js',
+        '_locales/en/messages.json',
+        '_locales/zh_CN/messages.json',
         'icons/icon-off-16.png',
         'icons/icon-off-32.png',
         'icons/icon-off-48.png',

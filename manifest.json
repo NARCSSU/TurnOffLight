@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Dark Mode Switch",
+  "name": "__MSG_extensionName__",
   "version": "1.0.0",
-  "description": "Convert web pages to dark mode for better ergonomic viewing experience.",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en",
   "author": "Dark Mode Switch Team",
   "minimum_chrome_version": "109",
   "browser_specific_settings": {
