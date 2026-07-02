@@ -1,0 +1,12 @@
+:root {
+  --dark-bg-color: #1a1a2e;
+}
+
+.dark-mode-active {
+  color-scheme: dark !important;
+}
+
+.dark-mode-active html,
+.dark-mode-active body {
+  background-color: var(--dark-bg-color) !important;
+}

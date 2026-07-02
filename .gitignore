@@ -1,0 +1,4 @@
+*.xpi
+.trae/
+__pycache__/
+*.pyc

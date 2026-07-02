@@ -1,0 +1,471 @@
+/* ========== CSS 变量 ========== */
+#dark-mode-lightbox-overlay {
+    --lightbox-width: 40vw;
+    --toolbar-bg: rgba(0, 0, 0, 0.3);
+    --btn-bg: rgba(255, 255, 255, 0.1);
+    --btn-bg-hover: rgba(255, 255, 255, 0.3);
+    --accent: #4a9eff;
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease
+}
+
+/* ========== 1. 主面板容器 ========== */
+#dark-mode-lightbox-overlay {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: var(--lightbox-width);
+    min-width: 300px;
+    max-width: 80vw;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform var(--transition-normal);
+    overflow: hidden
+}
+
+.dark-mode-lightbox-active #dark-mode-lightbox-overlay {
+    transform: translateX(0)
+}
+
+/* ========== 2. 顶部工具栏 ========== */
+#dark-mode-lightbox-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: var(--toolbar-bg);
+    flex-shrink: 0;
+    gap: 10px
+}
+
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 6px
+}
+
+/* 挡位按钮组 */
+.size-btn {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    border: 1px solid transparent;
+    background: var(--btn-bg);
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    font-family: sans-serif;
+    white-space: nowrap
+}
+
+.size-btn:hover {
+    background: var(--btn-bg-hover);
+    color: #fff
+}
+
+.size-btn.active {
+    background: linear-gradient(135deg, #fff, #b3d4ff);
+    color: #000;
+    font-weight: 600
+}
+
+/* 功能按钮组 */
+.toolbar-btn {
+    background: var(--btn-bg);
+    border: none;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.toolbar-btn:hover {
+    background: var(--btn-bg-hover)
+}
+
+.toolbar-btn:active {
+    transform: scale(0.95)
+}
+
+/* ========== 3. 媒体显示区 ========== */
+#dark-mode-lightbox-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    padding: 20px
+}
+
+/* ========== 4. 媒体元素 ========== */
+#dark-mode-lightbox-media {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transition: transform var(--transition-normal);
+    user-select: none
+}
+
+#dark-mode-lightbox-media.video {
+    background: #000
+}
+
+#dark-mode-lightbox-media.zoomed {
+    cursor: grab
+}
+
+#dark-mode-lightbox-media.dragging {
+    cursor: grabbing;
+    transition: none
+}
+
+/* ========== 5. 导航按钮 ========== */
+#dark-mode-lightbox-nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    pointer-events: none;
+    z-index: 2
+}
+
+#dark-mode-lightbox-nav button {
+    pointer-events: auto;
+    background: var(--btn-bg);
+    border: none;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px)
+}
+
+#dark-mode-lightbox-nav button:hover {
+    background: var(--btn-bg-hover)
+}
+
+#dark-mode-lightbox-nav button:active {
+    transform: scale(0.95)
+}
+
+/* ========== 6. 底部信息区 ========== */
+#dark-mode-lightbox-info {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 8px 15px;
+    background: var(--toolbar-bg);
+    flex-shrink: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+#dark-mode-lightbox-progress {
+    height: 3px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    flex-shrink: 0;
+    overflow: hidden
+}
+
+#dark-mode-lightbox-progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width var(--transition-normal)
+}
+
+/* 缩略图容器 - 确保所有缩略图可滚动显示 */
+#dark-mode-lightbox-thumbnails {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.4);
+    flex-shrink: 0;
+    scrollbar-width: thin;
+    max-height: 80px
+}
+
+#dark-mode-lightbox-thumbnails::-webkit-scrollbar {
+    height: 6px
+}
+
+#dark-mode-lightbox-thumbnails::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3)
+}
+
+#dark-mode-lightbox-thumbnails::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px
+}
+
+/* 缩略图项 */
+.thumbnail-item {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    opacity: 0.6;
+    transition: opacity var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast)
+}
+
+.thumbnail-item:hover {
+    opacity: 1;
+    transform: scale(1.05)
+}
+
+.thumbnail-item.active {
+    opacity: 1;
+    border-color: #fff
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+/* 视频缩略图播放图标 */
+.thumbnail-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none
+}
+
+.thumbnail-play-icon svg {
+    margin-left: 2px
+}
+
+/* ========== 7. 最小化状态 ========== */
+#dark-mode-lightbox-overlay.minimized {
+    width: 60px !important;
+    height: 60px !important;
+    min-width: 60px;
+    max-width: 60px;
+    border-radius: 30px;
+    bottom: 20px;
+    top: auto;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.85);
+    cursor: pointer
+}
+
+#dark-mode-lightbox-overlay.minimized>*:not(.minimized-icon) {
+    display: none !important
+}
+
+.minimized-icon {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-size: 24px
+}
+
+#dark-mode-lightbox-overlay.minimized .minimized-icon {
+    display: flex
+}
+
+/* ========== 8. UI 自动隐藏 ========== */
+#dark-mode-lightbox-overlay.ui-hidden #dark-mode-lightbox-nav,
+#dark-mode-lightbox-overlay.ui-hidden #dark-mode-lightbox-toolbar,
+#dark-mode-lightbox-overlay.ui-hidden #dark-mode-lightbox-info,
+#dark-mode-lightbox-overlay.ui-hidden #dark-mode-lightbox-progress,
+#dark-mode-lightbox-overlay.ui-hidden #dark-mode-lightbox-thumbnails {
+    opacity: 0;
+    pointer-events: none
+}
+
+#dark-mode-lightbox-nav,
+#dark-mode-lightbox-toolbar,
+#dark-mode-lightbox-info,
+#dark-mode-lightbox-progress,
+#dark-mode-lightbox-thumbnails {
+    transition: opacity var(--transition-slow)
+}
+
+/* ========== 9. 拖拽调整宽度 ========== */
+#dark-mode-lightbox-resize-handle {
+    position: absolute;
+    left: -2px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    cursor: col-resize;
+    background: transparent;
+    z-index: 10;
+    transition: background var(--transition-fast)
+}
+
+#dark-mode-lightbox-resize-handle:hover,
+#dark-mode-lightbox-resize-handle.dragging {
+    background: var(--accent)
+}
+
+/* ========== 兼容旧元素 ========== */
+#dark-mode-lightbox-close {
+    background: var(--btn-bg);
+    border: none;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+#dark-mode-lightbox-close:hover {
+    background: var(--btn-bg-hover)
+}
+
+#dark-mode-lightbox-indicators {
+    display: none
+}
+
+/* ========== 10. 视频专属控件 ========== */
+#dark-mode-lightbox-video-controls {
+    display: none
+}
+
+#dark-mode-lightbox-overlay.video-mode #dark-mode-lightbox-video-controls {
+    display: flex
+}
+
+#dark-mode-lightbox-speed {
+    width: auto;
+    min-width: 36px;
+    padding: 0 8px;
+    font-size: 12px;
+    font-weight: 600
+}
+
+#dark-mode-lightbox-loop.active,
+#dark-mode-lightbox-mute.active {
+    background: var(--accent);
+    color: #fff
+}
+
+#dark-mode-lightbox-pip {
+    font-size: 11px;
+    font-weight: 700
+}
+
+/* ========== 11. 视频叠加层 ========== */
+#dark-mode-lightbox-speed-badge,
+#dark-mode-lightbox-volume-indicator,
+#dark-mode-lightbox-fastforward-hint,
+#dark-mode-lightbox-restore-hint {
+    position: absolute;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-fast)
+}
+
+#dark-mode-lightbox-speed-badge {
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: sans-serif
+}
+
+#dark-mode-lightbox-speed-badge.visible {
+    opacity: 1
+}
+
+#dark-mode-lightbox-volume-indicator,
+#dark-mode-lightbox-fastforward-hint,
+#dark-mode-lightbox-restore-hint {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: sans-serif;
+    text-align: center;
+    white-space: nowrap
+}
+
+#dark-mode-lightbox-volume-indicator.visible,
+#dark-mode-lightbox-fastforward-hint.visible,
+#dark-mode-lightbox-restore-hint.visible {
+    opacity: 1
+}
+
+#dark-mode-lightbox-fastforward-hint {
+    font-size: 18px;
+    font-weight: 600
+}
+
+/* ========== 12. SVG 图标样式 ========== */
+#dark-mode-lightbox-overlay svg {
+    display: inline-block;
+    vertical-align: middle;
+    pointer-events: none
+}
+
+#dark-mode-lightbox-overlay .toolbar-btn:hover svg,
+#dark-mode-lightbox-overlay .nav-btn:hover svg,
+#dark-mode-lightbox-overlay #dark-mode-lightbox-prev:hover,
+#dark-mode-lightbox-overlay #dark-mode-lightbox-next:hover {
+    stroke: #fff
+}
+
+#dark-mode-lightbox-overlay .toolbar-btn.active svg {
+    stroke: #fff
+}

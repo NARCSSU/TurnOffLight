@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode Switch - Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Dark Mode Switch</h1>
+      <p>Customize your dark mode experience</p>
+    </div>
+
+    <div class="main-content">
+      <div class="section">
+        <h2>Custom Colors</h2>
+
+        <div class="color-group">
+          <label class="color-label">
+            <span class="label-text">Background Color</span>
+            <div class="color-picker-wrapper">
+              <input type="color" id="bg-color" value="#1a1a2e">
+              <input type="text" id="bg-color-hex" value="#1a1a2e" class="hex-input">
+            </div>
+          </label>
+
+          <label class="color-label">
+            <span class="label-text">Text Color</span>
+            <div class="color-picker-wrapper">
+              <input type="color" id="text-color" value="#e0e0e0">
+              <input type="text" id="text-color-hex" value="#e0e0e0" class="hex-input">
+            </div>
+          </label>
+        </div>
+
+        <label class="checkbox-label">
+          <input type="checkbox" id="use-custom-colors">
+          <span>Enable Custom Colors</span>
+        </label>
+
+        <div class="preview-section">
+          <h3>Preview</h3>
+          <div class="preview-box" id="preview-box">
+            <div class="preview-header">Sample Content</div>
+            <div class="preview-body">
+              <p>This is a sample paragraph with custom colors applied.</p>
+              <ul>
+                <li>List item 1</li>
+                <li>List item 2</li>
+              </ul>
+              <button class="preview-btn">Sample Button</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Quick Presets</h2>
+        <div class="preset-grid">
+          <button class="preset-card" data-bg="#0d0d0d" data-text="#ffffff" data-name="Pitch Black">
+            <div class="preset-preview" style="background: #0d0d0d; color: #ffffff;"></div>
+            <span>Pitch Black</span>
+          </button>
+          <button class="preset-card" data-bg="#1a1a2e" data-text="#e0e0e0" data-name="Midnight">
+            <div class="preset-preview" style="background: #1a1a2e; color: #e0e0e0;"></div>
+            <span>Midnight</span>
+          </button>
+          <button class="preset-card" data-bg="#2d2d2d" data-text="#cccccc" data-name="Gray Dark">
+            <div class="preset-preview" style="background: #2d2d2d; color: #cccccc;"></div>
+            <span>Gray Dark</span>
+          </button>
+          <button class="preset-card" data-bg="#1e3a5f" data-text="#e8eef7" data-name="Ocean Blue">
+            <div class="preset-preview" style="background: #1e3a5f; color: #e8eef7;"></div>
+            <span>Ocean Blue</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="section">
+        <h2>Reset Settings</h2>
+        <button id="reset-btn" class="reset-btn">Reset to Default</button>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <button id="save-btn" class="save-btn">Save Changes</button>
+      <span id="status-message" class="status-message"></span>
+    </div>
+  </div>
+  
+  <script src="options.js"></script>
+</body>
+</html>

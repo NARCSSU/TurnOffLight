@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode Switch</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Dark Mode Switch</h1>
+      <p class="subtitle">Toggle dark mode for better viewing</p>
+    </div>
+
+    <div class="toggle-section">
+      <label class="toggle-label">
+        <span class="toggle-text">Enable Dark Mode</span>
+        <button id="toggle-btn" class="toggle-btn">OFF</button>
+      </label>
+    </div>
+
+    <div class="filter-section">
+      <label class="depth-label">
+        <span class="depth-text">Background Color</span>
+        <input type="color" id="bg-color-picker" value="#1a1a2e">
+      </label>
+      <label class="depth-label">
+        <span class="depth-text">Darkness: <span id="bg-darkness-value">80%</span></span>
+        <input type="range" id="bg-darkness-slider" min="0" max="100" value="80" step="5">
+      </label>
+    </div>
+
+    <div class="follow-section">
+      <label class="checkbox-label">
+        <input type="checkbox" id="follow-system">
+        <span>Follow System Theme</span>
+      </label>
+    </div>
+
+    <div class="lightbox-section">
+      <label class="checkbox-label">
+        <input type="checkbox" id="enable-lightbox">
+        <span>Enable Lightbox Viewer</span>
+      </label>
+      <p class="lightbox-hint">Click images to open in gallery view</p>
+    </div>
+
+    <div class="lightbox-size-section">
+      <label class="depth-label">
+        <span class="depth-text">Lightbox Size: <span id="lightbox-size-value">40%</span></span>
+        <input type="range" id="lightbox-size-slider" min="20" max="80" value="40" step="5">
+      </label>
+      <div class="depth-presets">
+        <button class="preset-btn lightbox-size-btn" data-size="25">紧凑</button>
+        <button class="preset-btn lightbox-size-btn active" data-size="40">标准</button>
+        <button class="preset-btn lightbox-size-btn" data-size="60">宽敞</button>
+        <button class="preset-btn lightbox-size-btn" data-size="80">沉浸</button>
+      </div>
+    </div>
+
+    <div class="button-size-section">
+      <label class="depth-label">
+        <span class="depth-text">Button Size: <span id="button-size-value">48px</span></span>
+        <input type="range" id="button-size-slider" min="32" max="64" value="48" step="2">
+      </label>
+    </div>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
