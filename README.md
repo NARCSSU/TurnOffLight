@@ -186,15 +186,6 @@ python build_xpi.py
 3. Translate all message values
 4. Test by changing your Firefox UI language
 
-## 📝 Changelog
-
-### v1.0.0
-- Initial release
-- Dark mode toggle with custom colors
-- System theme sync
-- Lightbox image viewer
-- Bilingual (English / Chinese) support
-- Extension master toggle
 
 ## 📄 License
 
